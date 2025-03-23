@@ -32,7 +32,7 @@ The benchmark will be performed in a temporary system, and all traces will be de
 Therefore, it has no impact on the original environment and supports almost all linux systems.
 
 Author: Lloyd@nodeseek.com
-Github Repo: github.com/LloydAsp/NodeQuality
+Github: github.com/LloydAsp/NodeQuality
 Command: bash <(curl -sL https://run.NodeQuality.com)
 
 	EOF
@@ -162,7 +162,7 @@ function run_net_trace(){
     chroot_run bash <(curl -Ls $raw_file_prefix/part/trace.sh)
 }
 
-uploadAPI="https://api.nodequality.com/v1/record"
+uploadAPI="https://api.nodequality.com/api/v1/record"
 function upload_result(){
     sed -i '1,/\r########/d' $result_directory/$ip_quality_filename
     line5="$(sed -n 5p $result_directory/$ip_quality_filename )"
