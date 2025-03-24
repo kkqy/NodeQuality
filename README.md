@@ -28,6 +28,8 @@ bash <(curl -sL https://run.NodeQuality.com)
 配套提供一个**现代化**的网页粘贴板和排版工具，保留了原有的文本高亮。
 IP质量 和 网络质量 的结果自动截图，预留一定的边距，使其更加美观。
 
+[预览地址](https://nodequality.com/r/IHfGBj2jD8OT7BqBNUbCWTWV3XRIbpMB)
+
 ## “拼好脚本”，减少重复测试
 
 目前方案是选取了**Yabs + IP质量 + 网络质量 + 融合怪的部分功能**，重新整合后的脚本。这种组合兼顾信息的全面性和直观性。
