@@ -136,7 +136,7 @@ function run_header(){
 yabs_url="$raw_file_prefix/part/yabs.sh"
 function run_yabs(){
     if ! curl -s 'https://browser.geekbench.com' --connect-timeout 5 >/dev/null; then
-        chroot_run bash <(curl -sL $yabs_url) -s -- -g -w /result/$yabs_json_filename
+        chroot_run bash <(curl -sL $yabs_url) -s -- -gi -w /result/$yabs_json_filename
         echo -e "对 IPv6 单栈的服务器来说进行测试没有意义，\n因为要将结果上传到 browser.geekbench.com 后才能拿到最后的跑分，\n但 browser.geekbench.com 仅有 IPv4、不支持 IPv6，测了也是白测。"
     else
         virt=$(dmidecode -s system-product-name 2> /dev/null || virt-what | grep -v redhat | head -n 1 || echo "none")
@@ -144,7 +144,7 @@ function run_yabs(){
             check_swap 1>&2
         fi
         # 服务器一般测geekbench5即可
-        chroot_run bash <(curl -sL $yabs_url) -s -- -5 -w /result/$yabs_json_filename
+        chroot_run bash <(curl -sL $yabs_url) -s -- -5i -w /result/$yabs_json_filename
     fi
 
     chroot_run bash <(curl -sL $raw_file_prefix/part/sysbench.sh)
