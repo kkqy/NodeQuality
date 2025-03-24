@@ -14,7 +14,7 @@ add_swap(){
     # 再次判断内存+Swap是否小于1.5G
     new_swap=$(free -m | awk '/Swap/{print $2}')
     new_ms=$((mem + new_swap))
-    if [ "$new_ms" -ge "1500" ]; then
+    if [ "$new_ms" -ge "1490" ]; then
         echo
         _blue "经判断，现在内存加Swap总计${new_ms}Mi，满足GB5测试条件\n"
     else

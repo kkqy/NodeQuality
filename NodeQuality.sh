@@ -141,7 +141,7 @@ function run_yabs(){
     else
         virt=$(dmidecode -s system-product-name 2> /dev/null || virt-what | grep -v redhat | head -n 1 || echo "none")
         if [[ "${virt,,}" != "lxc" ]]; then
-            check_swap
+            check_swap 1>&2
         fi
         # 服务器一般测geekbench5即可
         chroot_run bash <(curl -sL $yabs_url) -s -- -5 -w /result/$yabs_json_filename
