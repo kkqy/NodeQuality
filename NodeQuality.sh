@@ -5,6 +5,10 @@ work_dir=".nodequality$current_time"
 bench_os_url="https://github.com/LloydAsp/NodeQuality/releases/download/v0.0.1/BenchOs.tar.gz"
 raw_file_prefix="https://raw.githubusercontent.com/LloydAsp/NodeQuality/refs/heads/main"
 
+if uname -m | grep -Eq 'arm|aarch64'; then
+    bench_os_url="https://github.com/LloydAsp/NodeQuality/releases/download/v0.0.1/BenchOs-arm.tar.gz"
+fi
+
 header_info_filename=header_info.log
 basic_info_filename=basic_info.log
 yabs_json_filename=yabs.json
