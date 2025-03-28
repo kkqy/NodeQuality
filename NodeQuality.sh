@@ -163,7 +163,7 @@ function run_net_quality(){
 }
 
 function run_net_trace(){
-    chroot_run bash <(curl -Ls $raw_file_prefix/part/trace.sh)
+    chroot_run bash <(curl -Ls Net.Check.Place) -R -n -S 123
 }
 
 uploadAPI="https://api.nodequality.com/api/v1/record"
