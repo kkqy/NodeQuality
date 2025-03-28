@@ -37,6 +37,6 @@ IP质量 和 网络质量 的结果自动截图，预留一定的边距，使其
 ## 致谢
 特别感谢[xykt](https://github.com/xykt)，本项目归根到底是**以xy脚本为核心的封装和后处理**；项目名也来自于xykt。
 
-感谢[融合怪脚本](https://github.com/spiritLHLS/ecs)，为了保证可比性，sysbench部分采用了融合怪的脚本片段，3网回程使用了融合怪的go项目
+感谢[融合怪脚本](https://github.com/spiritLHLS/ecs)，为了保证可比性，sysbench部分采用了融合怪的脚本片段
 
 感谢[16图床](https://111666.best/)提供的图片数据储存支持和上传接口对接协助
