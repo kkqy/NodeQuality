@@ -207,10 +207,27 @@ function post_check_mount(){
     fi
 }
 
+
+function ask_question(){
+    read -p "是否执行 YABS 测试 (直接回车默认是) [y/n]: " run_yabs_test
+    run_yabs_test=${run_yabs_test:-y}
+
+    read -p "是否执行 IP质量测试 (直接回车默认是) [y/n]: " run_ip_quality_test
+    run_ip_quality_test=${run_ip_quality_test:-y}
+
+    read -p "是否执行 网络质量测试 (直接回车默认是) [y/n]: " run_net_quality_test
+    run_net_quality_test=${run_net_quality_test:-y}
+
+    read -p "是否执行 回程路径追踪 (直接回车默认是) [y/n]: " run_net_trace_test
+    run_net_trace_test=${run_net_trace_test:-y}
+}
+
 function main(){
     trap 'sig_cleanup' INT TERM SIGHUP EXIT
 
     start_ascii
+
+    ask_question
 
     _green_bold 'Clean Up before Installation'
     pre_init
@@ -226,16 +243,25 @@ function main(){
     mkdir -p $result_directory
     run_header > $result_directory/$header_info_filename
 
-    run_yabs | tee $result_directory/$basic_info_filename
+    if [[ "$run_yabs_test" =~ ^[Yy]$ ]]; then
+        _green_bold 'Running Basic Info Test...'
+        run_yabs | tee $result_directory/$basic_info_filename
+    fi
 
-    _green_bold 'Ip Quality'
-    run_ip_quality  | tee $result_directory/$ip_quality_filename
+    if [[ "$run_ip_quality_test" =~ ^[Yy]$ ]]; then
+        _green_bold 'Running IP Quality Test...'
+        run_ip_quality | tee $result_directory/$ip_quality_filename
+    fi
 
-    _green_bold 'Network Quality'
-    run_net_quality | tee $result_directory/$net_quality_filename
+    if [[ "$run_net_quality_test" =~ ^[Yy]$ ]]; then
+        _green_bold 'Running Network Quality Test...'
+        run_net_quality | tee $result_directory/$net_quality_filename
+    fi
 
-    _green_bold 'Backroute Trace'
-    run_net_trace | tee $result_directory/$backroute_trace_filename
+    if [[ "$run_net_trace_test" =~ ^[Yy]$ ]]; then
+        _green_bold 'Running Backroute Trace...'
+        run_net_trace | tee $result_directory/$backroute_trace_filename
+    fi
 
     upload_result
     _green_bold 'Clean Up after Installation'
