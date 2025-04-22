@@ -209,16 +209,23 @@ function post_check_mount(){
 
 
 function ask_question(){
-    read -p "是否执行 YABS 测试 (直接回车默认是) [y/n]: " run_yabs_test
+    yellow='\033[1;33m'  # Set yellow color
+    reset='\033[0m'      # Reset to default color
+
+    echo -en "${yellow}Run Basic Info test? (Enter for default 'y') [y/n]: ${reset}"
+    read run_yabs_test
     run_yabs_test=${run_yabs_test:-y}
 
-    read -p "是否执行 IP质量测试 (直接回车默认是) [y/n]: " run_ip_quality_test
+    echo -en "${yellow}Run IPQuality test? (Enter for default 'y') [y/n]: ${reset}"
+    read run_ip_quality_test
     run_ip_quality_test=${run_ip_quality_test:-y}
 
-    read -p "是否执行 网络质量测试 (直接回车默认是) [y/n]: " run_net_quality_test
+    echo -en "${yellow}Run NetQuality test? (Enter for default 'y') [y/n]: ${reset}"
+    read run_net_quality_test
     run_net_quality_test=${run_net_quality_test:-y}
 
-    read -p "是否执行 回程路径追踪 (直接回车默认是) [y/n]: " run_net_trace_test
+    echo -en "${yellow}Run Backroute Trace test? (Enter for default 'y') [y/n]: ${reset}"
+    read run_net_trace_test
     run_net_trace_test=${run_net_trace_test:-y}
 }
 
