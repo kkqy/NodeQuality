@@ -177,6 +177,7 @@ function upload_result(){
 }
 
 function post_cleanup(){
+    chroot_run umount -R /dev &> /dev/null
     clear_mount
 
     post_check_mount
@@ -202,6 +203,7 @@ function sig_cleanup(){
 function post_check_mount(){
     if mount | grep nodequality$current_time ; then
         echo "出现了预料之外的情况，BenchOs目录的挂载未被清理干净，保险起见请重启后删除该目录" | tee $work_dir/error.log >&2
+        exit
     fi
 }
 
