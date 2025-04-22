@@ -168,9 +168,6 @@ function run_net_trace(){
 
 uploadAPI="https://api.nodequality.com/api/v1/record"
 function upload_result(){
-    sed -i '1,/\r########/d' $result_directory/$ip_quality_filename
-    line5="$(sed -n 5p $result_directory/$ip_quality_filename )"
-    sed -i "1i $line5" $result_directory/$ip_quality_filename
 
     chroot_run zip -j - "/result/*" > $work_dir/result.zip
 
