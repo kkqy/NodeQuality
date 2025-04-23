@@ -13,8 +13,11 @@ header_info_filename=header_info.log
 basic_info_filename=basic_info.log
 yabs_json_filename=yabs.json
 ip_quality_filename=ip_quality.log
+ip_quality_json_filename=ip_quality.json
 net_quality_filename=net_quality.log
+net_quality_json_filename=net_quality.json
 backroute_trace_filename=backroute_trace.log
+backroute_trace_json_filename=backroute_trace.json
 port_filename=port.log
 
 function start_ascii(){
@@ -155,15 +158,15 @@ function run_yabs(){
 }
 
 function run_ip_quality(){
-    chroot_run bash <(curl -Ls IP.Check.Place) -n 
+    chroot_run bash <(curl -Ls IP.Check.Place) -n -o /result/$ip_quality_json_filename
 }
 
 function run_net_quality(){
-    chroot_run bash <(curl -Ls Net.Check.Place) -n 
+    chroot_run bash <(curl -Ls Net.Check.Place) -n -o /result/$net_quality_json_filename
 }
 
 function run_net_trace(){
-    chroot_run bash <(curl -Ls Net.Check.Place) -R -n -S 123
+    chroot_run bash <(curl -Ls Net.Check.Place) -R -n -S 123 -o /result/$backroute_trace_json_filename
 }
 
 uploadAPI="https://api.nodequality.com/api/v1/record"
