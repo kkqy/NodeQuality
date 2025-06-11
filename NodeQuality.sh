@@ -162,7 +162,9 @@ function run_ip_quality(){
 }
 
 function run_net_quality(){
-    chroot_run bash <(curl -Ls Net.Check.Place) -n -o /result/$net_quality_json_filename
+    local params=""
+    [[ "$run_net_quality_test" =~ ^[Ll]$ ]] && params=" -L"
+    chroot_run bash <(curl -Ls Net.Check.Place) $params -n -o /result/$net_quality_json_filename
 }
 
 function run_net_trace(){
@@ -223,7 +225,7 @@ function ask_question(){
     read run_ip_quality_test
     run_ip_quality_test=${run_ip_quality_test:-y}
 
-    echo -en "${yellow}Run NetQuality test? (Enter for default 'y') [y/n]: ${reset}"
+    echo -en "${yellow}Run NetQuality test? (Enter for default 'y', 'l' for low-data mode) [y/l/n]: ${reset}"
     read run_net_quality_test
     run_net_quality_test=${run_net_quality_test:-y}
 
@@ -263,7 +265,7 @@ function main(){
         run_ip_quality | tee $result_directory/$ip_quality_filename
     fi
 
-    if [[ "$run_net_quality_test" =~ ^[Yy]$ ]]; then
+    if [[ "$run_net_quality_test" =~ ^[YyLl]$ ]]; then
         _green_bold 'Running Network Quality Test...'
         run_net_quality | tee $result_directory/$net_quality_filename
     fi
