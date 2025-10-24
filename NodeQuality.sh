@@ -2,11 +2,11 @@
 
 current_time="$(date +%Y_%m_%d_%H_%M_%S)"
 work_dir=".nodequality$current_time"
-bench_os_url="https://github.com/LloydAsp/NodeQuality/releases/download/v0.0.1/BenchOs.tar.gz"
-raw_file_prefix="https://raw.githubusercontent.com/LloydAsp/NodeQuality/refs/heads/main"
+bench_os_url="https://rp.kkqy.de/https://github.com/LloydAsp/NodeQuality/releases/download/v0.0.1/BenchOs.tar.gz"
+raw_file_prefix="https://rp.kkqy.de/https://raw.githubusercontent.com/LloydAsp/NodeQuality/refs/heads/main"
 
 if uname -m | grep -Eq 'arm|aarch64'; then
-    bench_os_url="https://github.com/LloydAsp/NodeQuality/releases/download/v0.0.1/BenchOs-arm.tar.gz"
+    bench_os_url="https://rp.kkqy.de/https://github.com/LloydAsp/NodeQuality/releases/download/v0.0.1/BenchOs-arm.tar.gz"
 fi
 
 header_info_filename=header_info.log
@@ -132,7 +132,11 @@ function load_part(){
 }
 
 function load_3rd_program(){
-    chroot_run wget https://github.com/nxtrace/NTrace-core/releases/download/v1.3.7/nexttrace_linux_amd64 -qO /usr/local/bin/nexttrace
+    url="https://rp.kkqy.de/https://github.com/nxtrace/NTrace-core/releases/download/v1.3.7/nexttrace_linux_amd64"
+    if uname -m | grep -Eq 'arm|aarch64'; then
+        url="https://rp.kkqy.de/https://github.com/nxtrace/NTrace-core/releases/download/v1.3.7/nexttrace_linux_arm64"
+    fi
+    chroot_run wget $url -qO /usr/local/bin/nexttrace
     chroot_run chmod u+x /usr/local/bin/nexttrace
 }
 
@@ -248,7 +252,6 @@ function main(){
     load_bench_os
 
     load_part
-    load_3rd_program
     _green_bold 'Basic Info'
 
     result_directory=$work_dir/BenchOs/result
@@ -272,6 +275,7 @@ function main(){
 
     if [[ "$run_net_trace_test" =~ ^[Yy]$ ]]; then
         _green_bold 'Running Backroute Trace...'
+        load_3rd_program
         run_net_trace | tee $result_directory/$backroute_trace_filename
     fi
 
